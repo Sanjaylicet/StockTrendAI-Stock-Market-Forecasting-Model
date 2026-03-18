@@ -142,11 +142,11 @@ const priceChart = new Chart(priceCtx, {
     plugins: {
       legend: { display: false },
       tooltip: {
-        backgroundColor: 'rgba(22,27,34,0.95)',
-        borderColor: '#30363d',
+        backgroundColor: 'rgba(255,255,255,0.95)',
+        borderColor: '#dee2e6',
         borderWidth: 1,
-        titleColor: '#8b949e',
-        bodyColor: '#e6edf3',
+        titleColor: '#6c757d',
+        bodyColor: '#212529',
         padding: 12,
         callbacks: {
           label: ctx => {
@@ -158,12 +158,12 @@ const priceChart = new Chart(priceCtx, {
     },
     scales: {
       x: {
-        grid:  { color: 'rgba(48,54,61,0.5)' },
-        ticks: { color: '#8b949e', maxTicksLimit: 12, font: { size: 11 } }
+        grid:  { color: 'rgba(208,215,222,0.5)' },
+        ticks: { color: '#6c757d', maxTicksLimit: 12, font: { size: 11 } }
       },
       y: {
-        grid:  { color: 'rgba(48,54,61,0.5)' },
-        ticks: { color: '#8b949e', callback: v => `$${v}`, font: { size: 11 } }
+        grid:  { color: 'rgba(208,215,222,0.5)' },
+        ticks: { color: '#6c757d', callback: v => `$${v}`, font: { size: 11 } }
       }
     }
   }
@@ -227,12 +227,12 @@ new Chart(lossCtx, {
     },
     scales: {
       x: {
-        grid:  { color: 'rgba(48,54,61,0.5)' },
-        ticks: { color: '#8b949e', maxTicksLimit: 10, font: { size: 11 } }
+        grid:  { color: 'rgba(208,215,222,0.5)' },
+        ticks: { color: '#6c757d', maxTicksLimit: 10, font: { size: 11 } }
       },
       y: {
-        grid:  { color: 'rgba(48,54,61,0.5)' },
-        ticks: { color: '#8b949e', font: { size: 11 } },
+        grid:  { color: 'rgba(208,215,222,0.5)' },
+        ticks: { color: '#6c757d', font: { size: 11 } },
         min: 0,
         max: 0.45
       }

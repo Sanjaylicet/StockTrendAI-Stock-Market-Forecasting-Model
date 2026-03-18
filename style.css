@@ -5,20 +5,20 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:        #0d1117;
-  --bg-alt:    #161b22;
-  --surface:   #1c2333;
-  --surface2:  #242d3d;
-  --border:    #30363d;
-  --accent:    #58a6ff;
-  --accent2:   #f0883e;
-  --green:     #3fb950;
-  --purple:    #bc8cff;
-  --red:       #ff7b72;
-  --text:      #e6edf3;
-  --text-muted:#8b949e;
+  --bg:        #ffffff;
+  --bg-alt:    #f8f9fa;
+  --surface:   #ffffff;
+  --surface2:  #e9ecef;
+  --border:    #dee2e6;
+  --accent:    #0d6efd;
+  --accent2:   #fd7e14;
+  --green:     #198754;
+  --purple:    #6f42c1;
+  --red:       #dc3545;
+  --text:      #212529;
+  --text-muted:#6c757d;
   --radius:    12px;
-  --shadow:    0 4px 24px rgba(0,0,0,.45);
+  --shadow:    0 4px 24px rgba(0,0,0,.08);
 }
 
 html { scroll-behavior: smooth; }
@@ -36,7 +36,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(13,17,23,.85);
+  background: rgba(255,255,255,.85);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
 }
@@ -92,8 +92,9 @@ body {
 .section-title {
   font-size: 2rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #e6edf3, var(--accent));
+  background: linear-gradient(135deg, #212529, var(--accent));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 12px;
 }
@@ -105,8 +106,9 @@ body {
 .hero-title {
   font-size: clamp(2.4rem, 5vw, 3.6rem);
   font-weight: 800;
-  background: linear-gradient(135deg, #fff 30%, var(--accent) 70%, var(--purple));
+  background: linear-gradient(135deg, #212529 30%, var(--accent) 70%, var(--purple));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   line-height: 1.1;
   margin-bottom: 20px;
@@ -153,8 +155,8 @@ body {
   cursor: pointer;
   transition: all .2s;
 }
-.btn:hover { border-color: var(--accent); color: var(--text); }
-.btn-primary, .btn.active { background: var(--accent); border-color: var(--accent); color: #0d1117; }
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn-primary, .btn.active { background: var(--accent); border-color: var(--accent); color: #ffffff; }
 
 .chart-wrapper {
   background: var(--surface);
