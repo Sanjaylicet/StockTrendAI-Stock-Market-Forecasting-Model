@@ -1,0 +1,56 @@
+Total cells: 34
+Found Milestone 2 start at cell 23: ## Check and Handle Missing Values
+
+### Subtask:
+Demonstrate how to check for missing values in the 
+Found "Evaluate" task cell at index 22: # Task
+Evaluate the trained LSTM model by plotting the actual versus predicted stock prices.
+
+Split index: 22
+Milestone 1 cells: 0 to 21 (22 cells)
+Milestone 2 cells: 22 to 33 (12 cells)
+
+Successfully created:
+  Milestone 1: C:\Users\sanja\Downloads\Springboard_Milestone1.ipynb (23 cells)
+  Milestone 2: C:\Users\sanja\Downloads\Springboard_Milestone2.ipynb (14 cells)
+
+Milestone 1 cell summary:
+  Cell  0 [markdown]: # Milestone 1 ## LSTM Stock Price Prediction - Data Preparation, Model Building 
+  Cell  1 [code    ]: 
+  Cell  2 [markdown]: # Task Develop and train an LSTM model to predict stock prices.
+  Cell  3 [markdown]: ## Prepare and scale stock data  ### Subtask: Extract the 'Close' column from th
+  Cell  4 [markdown]: **Reasoning**: To prepare and scale the stock data, I need to import `MinMaxScal
+  Cell  5 [code    ]: from sklearn.preprocessing import MinMaxScaler  # Extract the 'Close' column and
+  Cell  6 [markdown]: **Reasoning**: The previous code failed because the DataFrame 'df' was not defin
+  Cell  7 [code    ]: import pandas as pd import numpy as np from sklearn.preprocessing import MinMaxS
+  Cell  8 [markdown]: ## Create training dataset  ### Subtask: Generate the training dataset for the L
+  Cell  9 [markdown]: **Reasoning**: The subtask requires generating the training dataset by creating 
+  Cell 10 [code    ]: X_train = [] y_train = []  prediction_window = 60  for i in range(prediction_win
+  Cell 11 [markdown]: **Reasoning**: The previous code failed due to a `SyntaxError: unterminated stri
+  Cell 12 [code    ]: X_train = [] y_train = []  prediction_window = 60  for i in range(prediction_win
+  Cell 13 [markdown]: ## Build LSTM model  ### Subtask: Construct a Sequential Keras model with two LS
+  Cell 14 [markdown]: **Reasoning**: I need to construct a Keras Sequential model with the specified L
+  Cell 15 [code    ]: import tensorflow as tf from tensorflow.keras.models import Sequential from tens
+  Cell 16 [markdown]: **Reasoning**: The LSTM model has been constructed, so the next logical step is 
+  Cell 17 [code    ]: history = model.fit(X_train, y_train, epochs=100, batch_size=32, verbose=1)  pri
+  Cell 18 [markdown]: ## Train and evaluate model  ### Subtask: Evaluate the trained LSTM model by plo
+  Cell 19 [markdown]: ## Summary:  ### Data Analysis Key Findings  *   **Data Preparation and Scaling*
+  Cell 20 [markdown]: # Task Develop and train an LSTM model to predict stock prices.
+  Cell 21 [markdown]: ## Train and evaluate model  ### Subtask: Evaluate the trained LSTM model by plo
+  Cell 22 [markdown]: ## Summary:  ### Data Analysis Key Findings The provided context indicates that 
+
+Milestone 2 cell summary:
+  Cell  0 [markdown]: # Milestone 2 ## LSTM Stock Price Prediction - Evaluation, Missing Values & Outl
+  Cell  1 [code    ]: # ============================================================ # Milestone 2 Set
+  Cell  2 [markdown]: # Task Evaluate the trained LSTM model by plotting the actual versus predicted s
+  Cell  3 [markdown]: ## Check and Handle Missing Values  ### Subtask: Demonstrate how to check for mi
+  Cell  4 [markdown]: **Reasoning**: The subtask requires checking for missing values in the 'df' Data
+  Cell  5 [code    ]: print("Missing values before handling:") print(df.isnull().sum())  # Introduce s
+  Cell  6 [markdown]: **Reasoning**: The subtask requires evaluating the trained LSTM model by plottin
+  Cell  7 [code    ]: import matplotlib.pyplot as plt  # Make predictions on the training data train_p
+  Cell  8 [markdown]: ## Identify and Handle Outliers  ### Subtask: Demonstrate methods to identify ou
+  Cell  9 [markdown]: **Reasoning**: To identify and handle outliers in the 'Close' column, I will fir
+  Cell 10 [code    ]: import numpy as np  # Calculate Q1, Q3, and IQR for the 'Close' column Q1 = df['
+  Cell 11 [markdown]: ## Evaluate the trained LSTM model by plotting the actual versus predicted stock
+  Cell 12 [code    ]: import matplotlib.pyplot as plt import numpy as np import pandas as pd from skle
+  Cell 13 [markdown]: **Reasoning**: The previous comprehensive fix successfully executed, regeneratin

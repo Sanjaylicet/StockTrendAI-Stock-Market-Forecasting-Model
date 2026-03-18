@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LSTM Stock Price Predictor — Dashboard</title>
+  <meta name="description" content="Interactive dashboard for LSTM Stock Price Prediction project built with Keras & TensorFlow. Visualize actual vs predicted prices, training metrics and data statistics." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── HEADER ── -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">📈</span>
+        <span class="logo-text">LSTM<span class="logo-accent">Predict</span></span>
+      </div>
+      <nav class="nav">
+        <a href="#overview"  class="nav-link active" data-section="overview">Overview</a>
+        <a href="#chart"     class="nav-link" data-section="chart">Price Chart</a>
+        <a href="#training"  class="nav-link" data-section="training">Training</a>
+        <a href="#data"      class="nav-link" data-section="data">Data Stats</a>
+        <a href="#model"     class="nav-link" data-section="model">Model</a>
+      </nav>
+      <div class="header-badge">Springboard Milestone</div>
+    </div>
+  </header>
+
+  <!-- ── HERO / OVERVIEW ── -->
+  <section id="overview" class="section hero">
+    <div class="container">
+      <div class="hero-text">
+        <h1 class="hero-title">Stock Price Prediction</h1>
+        <p class="hero-subtitle">
+          Long Short-Term Memory (LSTM) neural network trained on synthetic stock data to forecast closing prices using a 60-day look-back window.
+        </p>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card" id="kpi-final-loss">
+          <div class="kpi-label">Final Training Loss</div>
+          <div class="kpi-value" id="val-final-loss">0.0926</div>
+          <div class="kpi-sub">Mean Squared Error</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Training Epochs</div>
+          <div class="kpi-value">100</div>
+          <div class="kpi-sub">Batch size 32</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Prediction Window</div>
+          <div class="kpi-value">60</div>
+          <div class="kpi-sub">Trading days</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Training Samples</div>
+          <div class="kpi-value">40</div>
+          <div class="kpi-sub">From 100-day dataset</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Initial Loss (Ep 1)</div>
+          <div class="kpi-value">0.4097</div>
+          <div class="kpi-sub">Improvement: 77%</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Outliers Detected</div>
+          <div class="kpi-value">0</div>
+          <div class="kpi-sub">IQR method</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PRICE CHART ── -->
+  <section id="chart" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Actual vs Predicted Stock Prices</h2>
+        <p class="section-desc">
+          The model predicts day 61 – 100. Days 1 – 60 are the look-back window (no predictions generated).
+          Prices are MinMax-scaled back to the original USD scale.
+        </p>
+      </div>
+
+      <div class="chart-controls">
+        <button class="btn btn-primary active" id="btn-both" onclick="setChartMode('both')">Both</button>
+        <button class="btn"                    id="btn-actual" onclick="setChartMode('actual')">Actual only</button>
+        <button class="btn"                    id="btn-pred"   onclick="setChartMode('predicted')">Predicted only</button>
+      </div>
+
+      <div class="chart-wrapper">
+        <canvas id="priceChart"></canvas>
+      </div>
+
+      <div class="chart-legend">
+        <span class="legend-item actual"><span class="dot"></span>Actual Close Price</span>
+        <span class="legend-item predicted"><span class="dot"></span>Predicted Close Price</span>
+        <span class="legend-item window"><span class="dot"></span>Look-back Window</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TRAINING LOSS ── -->
+  <section id="training" class="section alt-bg">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Training Loss Curve</h2>
+        <p class="section-desc">
+          MSE loss over 100 epochs. The model converged quickly in the first few epochs,
+          then plateaued at ~0.09–0.10.
+        </p>
+      </div>
+      <div class="chart-wrapper">
+        <canvas id="lossChart"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── DATA STATISTICS ── -->
+  <section id="data" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Data Statistics</h2>
+        <p class="section-desc">Summary statistics for the synthetic Close price series (seed 42, Jan – Apr 2023, 100 days).</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Count</div>
+          <div class="stat-value">100</div>
+          <div class="stat-sub">data points</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Mean</div>
+          <div class="stat-value">$147.02</div>
+          <div class="stat-sub">avg close price</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Std Dev</div>
+          <div class="stat-value">$29.75</div>
+          <div class="stat-sub">volatility</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Min</div>
+          <div class="stat-value">$100.55</div>
+          <div class="stat-sub">lowest close</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Q1 (25%)</div>
+          <div class="stat-value">$119.32</div>
+          <div class="stat-sub">first quartile</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Median</div>
+          <div class="stat-value">$146.41</div>
+          <div class="stat-sub">50th percentile</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Q3 (75%)</div>
+          <div class="stat-value">$173.02</div>
+          <div class="stat-sub">third quartile</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Max</div>
+          <div class="stat-value">$198.69</div>
+          <div class="stat-sub">highest close</div>
+        </div>
+      </div>
+
+      <!-- Outlier info -->
+      <div class="outlier-box">
+        <div class="outlier-icon">✅</div>
+        <div class="outlier-content">
+          <h3>Outlier Detection (IQR Method)</h3>
+          <p>
+            Lower bound: <strong>$38.77</strong> &nbsp;|&nbsp; Upper bound: <strong>$253.57</strong>
+          </p>
+          <p>No outliers were detected in this synthetic dataset. All 100 data points fall within the IQR bounds.</p>
+        </div>
+      </div>
+
+      <!-- Missing value info -->
+      <div class="outlier-box mv-box">
+        <div class="outlier-icon">🔍</div>
+        <div class="outlier-content">
+          <h3>Missing Value Analysis</h3>
+          <p>Both <strong>Date</strong> and <strong>Close</strong> columns: <strong>0 missing values</strong></p>
+          <p>No imputation needed. Data is complete for all 100 trading days.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MODEL ARCHITECTURE ── -->
+  <section id="model" class="section alt-bg">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">LSTM Model Architecture</h2>
+        <p class="section-desc">Sequential Keras model — 31,901 trainable parameters, compiled with Adam optimizer and MSE loss.</p>
+      </div>
+
+      <div class="arch-wrapper">
+        <div class="arch-layer input-layer">
+          <div class="arch-label">Input</div>
+          <div class="arch-shape">(None, 60, 1)</div>
+          <div class="arch-desc">60-day look-back window × 1 feature (Close price)</div>
+        </div>
+        <div class="arch-arrow">▼</div>
+        <div class="arch-layer lstm-layer">
+          <div class="arch-label">LSTM Layer 1</div>
+          <div class="arch-shape">(None, 60, 50)</div>
+          <div class="arch-params">10,400 params</div>
+          <div class="arch-desc">50 units • return_sequences=True</div>
+        </div>
+        <div class="arch-arrow">▼</div>
+        <div class="arch-layer dropout-layer">
+          <div class="arch-label">Dropout</div>
+          <div class="arch-shape">(None, 60, 50)</div>
+          <div class="arch-params">0 params</div>
+          <div class="arch-desc">rate = 0.2</div>
+        </div>
+        <div class="arch-arrow">▼</div>
+        <div class="arch-layer lstm-layer">
+          <div class="arch-label">LSTM Layer 2</div>
+          <div class="arch-shape">(None, 50)</div>
+          <div class="arch-params">20,200 params</div>
+          <div class="arch-desc">50 units • return_sequences=False</div>
+        </div>
+        <div class="arch-arrow">▼</div>
+        <div class="arch-layer dropout-layer">
+          <div class="arch-label">Dropout</div>
+          <div class="arch-shape">(None, 50)</div>
+          <div class="arch-params">0 params</div>
+          <div class="arch-desc">rate = 0.2</div>
+        </div>
+        <div class="arch-arrow">▼</div>
+        <div class="arch-layer dense-layer">
+          <div class="arch-label">Dense</div>
+          <div class="arch-shape">(None, 25)</div>
+          <div class="arch-params">1,275 params</div>
+          <div class="arch-desc">25 units</div>
+        </div>
+        <div class="arch-arrow">▼</div>
+        <div class="arch-layer output-layer">
+          <div class="arch-label">Dense (Output)</div>
+          <div class="arch-shape">(None, 1)</div>
+          <div class="arch-params">26 params</div>
+          <div class="arch-desc">1 unit — predicted close price</div>
+        </div>
+      </div>
+
+      <div class="model-meta">
+        <div class="meta-item">
+          <span class="meta-key">Total params</span>
+          <span class="meta-val">31,901 (124.61 KB)</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Trainable params</span>
+          <span class="meta-val">31,901</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Non-trainable params</span>
+          <span class="meta-val">0</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Optimizer</span>
+          <span class="meta-val">Adam</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Loss Function</span>
+          <span class="meta-val">Mean Squared Error</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Scaler</span>
+          <span class="meta-val">MinMaxScaler [0, 1]</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="container">
+      <p>Springboard Milestone Project &bull; LSTM Stock Price Prediction &bull; Built with Keras &amp; TensorFlow</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
