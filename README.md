@@ -13,7 +13,6 @@ An interactive stock market forecasting dashboard and machine learning model bui
 - **Organization:** Infosys Springboard
 - **Duration:** February 5, 2026 – April 3, 2026
 - **Intern:** Sanjay J
-- **Credential Verification:** [Verify Certificate via Infosys Springboard](https://verify.onwingspan.com)
 
 ---
 
